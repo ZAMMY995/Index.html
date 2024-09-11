@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organización Condominio Cumbres de Quilpué</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #50c878;
+            --accent-color: #ff6b6b;
+            --background-color: #f0f8ff;
+            --text-color: #333;
+            --line-color: #2c3e50;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+        }
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #sizeSlider {
+            width: 80%;
+            max-width: 300px;
+        }
+        .organigrama {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .nivel {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+            width: 100%;
+            position: relative;
+        }
+        .cargo {
+            background-color: #fff;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+            width: calc(100% - 20px);
+            max-width: 300px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .cargo:hover {
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+        }
+        .cargo h3 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        .cargo p {
+            margin: 5px 0 0;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+        .linea-vertical {
+            position: absolute;
+            width: 2px;
+            background-color: var(--line-color);
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .linea-horizontal {
+            position: absolute;
+            height: 2px;
+            background-color: var(--line-color);
+            bottom: -10px;
+            left: 10%;
+            right: 10%;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .cargo {
+                width: calc(33.33% - 20px);
+            }
+            .linea-horizontal {
+                left: 25%;
+                right: 25%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 40px;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+            .cargo {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Organización Condominio Cumbres de Quilpué</h1>
+        <div class="controls">
+            <label for="sizeSlider">Tamaño del organigrama: </label>
+            <input type="range" id="sizeSlider" min="50" max="150" value="100">
+        </div>
+        <div class="organigrama">
+            <div class="nivel">
+                <div class="cargo" data-funciones="Liderar el comité de administración y tomar decisiones estratégicas para el condominio.">
+                    <h3>Presidente</h3>
+                    <p>Guillermo Rivas</p>
+                </div>
+                <div class="cargo" data-funciones="Gestionar las finanzas del condominio, incluyendo presupuestos y gastos.">
+                    <h3>Tesorero</h3>
+                    <p>Carlos Miranda</p>
+                </div>
+                <div class="cargo" data-funciones="Mantener registros y actas de las reuniones del comité y la comunidad.">
+                    <h3>Secretario</h3>
+                    <p>Sami Donoso</p>
+                </div>
+                <div class="linea-horizontal"></div>
+            </div>
+            <div class="nivel">
+                <div class="cargo" data-funciones="Supervisar las operaciones diarias del condominio y gestionar el personal.">
+                    <h3>Administrador 1</h3>
+                    <p>Diego Acevedo</p>
+                </div>
+                <div class="cargo" data-funciones="Apoyar en la administración y gestión de proyectos especiales del condominio.">
+                    <h3>Administrador 2</h3>
+                    <p>Nelson Villalobos</p>
+                </div>
+                <div class="linea-horizontal"></div>
+            </div>
+            <div class="nivel">
+                <div class="cargo" data-funciones="Supervisar el mantenimiento general del condominio y coordinar al personal.">
+                    <h3>Mayordomo</h3>
+                    <p>Rodrigo Vásquez</p>
+                </div>
+                <div class="linea-horizontal"></div>
+            </div>
+            <div class="nivel">
+                <div class="cargo" data-funciones="Mantener la seguridad y el orden en las áreas comunes del condominio.">
+                    <h3>Conserjes</h3>
+                </div>
+                <div class="cargo" data-funciones="Mantener la limpieza y el orden en todas las áreas comunes del condominio.">
+                    <h3>Personal de Aseo</h3>
+                </div>
+                <div class="cargo" data-funciones="Suministrar bienes y servicios necesarios para el funcionamiento del condominio.">
+                    <h3>Proveedores</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-funciones"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cargos = document.querySelectorAll('.cargo');
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalFunciones = document.getElementById('modal-funciones');
+            const closeBtn = document.querySelector('.close');
+            const sizeSlider = document.getElementById('sizeSlider');
+            const organigrama = document.querySelector('.organigrama');
+
+            function updateSize() {
+                const size = sizeSlider.value;
+                organigrama.style.fontSize = `${size}%`;
+                updateLines();
+            }
+
+            function updateLines() {
+                const niveles = document.querySelectorAll('.nivel');
+                niveles.forEach((nivel, index) => {
+                    if (index < niveles.length - 1) {
+                        const lineaHorizontal = nivel.querySelector('.linea-horizontal');
+                        let lineaVertical = nivel.querySelector('.linea-vertical');
+                        if (!lineaVertical) {
+                            lineaVertical = document.createElement('div');
+                            lineaVertical.className = 'linea-vertical';
+                            nivel.appendChild(lineaVertical);
+                        }
+
+                        const nivelRect = nivel.getBoundingClientRect();
+                        const nextNivelRect = niveles[index + 1].getBoundingClientRect();
+
+                        lineaHorizontal.style.bottom = `-${(nextNivelRect.top - nivelRect.bottom) / 2}px`;
+                        lineaVertical.style.height = `${nextNivelRect.top - nivelRect.bottom}px`;
+                    }
+                });
+            }
+
+            sizeSlider.addEventListener('input', updateSize);
+
+            anime({
+                targets: '.cargo',
+                opacity: 1,
+                translateY: 0,
+                delay: anime.stagger(100),
+                easing: 'easeOutExpo'
+            });
+
+            cargos.forEach(cargo => {
+                cargo.addEventListener('click', function() {
+                    modalTitle.textContent = this.querySelector('h3').textContent;
+                    modalFunciones.textContent = this.dataset.funciones;
+                    modal.style.display = 'block';
+                });
+
+                cargo.addEventListener('mouseenter', () => {
+                    anime({
+                        targets: cargo,
+                        scale: 1.05,
+                        duration: 300,
+                        easing: 'easeOutElastic(1, .8)'
+                    });
+                });
+
+                cargo.addEventListener('mouseleave', () => {
+                    anime({
+                        targets: cargo,
+                        scale: 1,
+                        duration: 300,
+                        easing: 'easeOutElastic(1, .8)'
+                    });
+                });
+            });
+
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            updateSize();
+            window.addEventListener('resize', updateLines);
+        });
+    </script>
+</body>
+</html>
